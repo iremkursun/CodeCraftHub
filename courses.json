@@ -38,13 +38,5 @@
     "target_date": "2026-12-31",
     "status": "Not Started",
     "created_at": "2026-09-17T13:43:16.346Z"
-  },
-  {
-    "id": 6,
-    "name": "JavaScript Advanced",
-    "description": "Master advanced JavaScript concepts",
-    "target_date": "2027-02-28",
-    "status": "In Progress",
-    "created_at": "2026-09-17T15:05:19.460Z"
   }
 ]
