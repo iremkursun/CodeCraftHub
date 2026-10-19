@@ -14,6 +14,7 @@ const VALID_STATUSES = [
 ];
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
 
 function initializeDataFile() {
     if (!fs.existsSync(DATA_FILE)) {
