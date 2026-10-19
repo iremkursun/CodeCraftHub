@@ -1,8 +1,8 @@
-# CodeCraftHub API
+# CodeCraftHub
 
-A RESTful Course Management API built with **Node.js** and **Express.js**.
+A RESTful Course Management API built with **Node.js** and **Express.js**, together with a browser-based course management dashboard.
 
-CodeCraftHub provides a lightweight backend for managing learning courses through CRUD operations. Course data is persisted in a local JSON file, making the project easy to run and demonstrate locally.
+CodeCraftHub provides a lightweight backend for managing learning courses through CRUD operations. Course data is persisted in a local JSON file, making the project easy to run and demonstrate locally. The included dashboard lets users create, view, edit, and delete courses directly from the browser.
 
 ## Features
 
@@ -14,24 +14,29 @@ CodeCraftHub provides a lightweight backend for managing learning courses throug
 - HTTP status code handling
 - Swagger / OpenAPI 3.0 documentation
 - Clean separation between the Express application and server entry point
+- Responsive single-page course management dashboard
 
 ## Tech Stack
 
 - Node.js
 - Express.js
 - JavaScript
+- HTML & CSS
 - REST API
 - JSON
 - Swagger / OpenAPI
+- Bolt.new (AI-assisted UI generation)
 - Git & GitHub
 
 ## Project Structure
 
 ```text
 CodeCraftHub/
-├── app.js          # Express application, routes and Swagger configuration
-├── server.js       # Application entry point
-├── courses.json    # Local course data
+├── app.js            # Express application, routes, static files and Swagger configuration
+├── server.js         # Application entry point
+├── courses.json      # Local course data
+├── public/
+│   └── index.html    # Course management dashboard (HTML, CSS and JavaScript)
 ├── package.json
 ├── package-lock.json
 ├── .gitignore
@@ -61,7 +66,7 @@ Each course contains:
 
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/` | API information |
+| GET | `/` | Course management dashboard |
 | GET | `/api/courses` | Get all courses |
 | POST | `/api/courses` | Create a course |
 | GET | `/api/courses/:id` | Get a course by ID |
@@ -140,7 +145,7 @@ Start the API:
 npm start
 ```
 
-The API will be available at:
+The dashboard will be available at:
 
 ```text
 http://localhost:5000
@@ -151,6 +156,36 @@ Swagger documentation:
 ```text
 http://localhost:5000/api/docs
 ```
+
+## Dashboard
+
+The course management dashboard is a single HTML file (`public/index.html`) with embedded CSS and vanilla JavaScript. No frameworks are used. It was generated with **Bolt.new** from a single detailed prompt and then integrated into this project.
+
+### Dashboard features
+
+- Lists all courses in a responsive card layout
+- Add Course form with validation for all required fields
+- Edit courses in a modal pre-filled with the current values
+- Remove courses with a confirmation prompt
+- Loading spinners, success/error notifications and an empty state
+- Formatted target and creation dates
+- Purple/amber theme (`#8B5CF6` primary, `#F59E0B` success, `#EF4444` delete)
+
+### How it connects to the API
+
+Express serves the dashboard from the `public/` folder:
+
+```js
+app.use(express.static(path.join(__dirname, "public")));
+```
+
+The dashboard calls the API with a relative base URL:
+
+```js
+const API_URL = '/api/courses';
+```
+
+Because the page and the API are served from the same origin, no CORS configuration is needed. The same setup also works in cloud IDEs where `localhost` in the browser does not point to the server.
 
 ## Development
 
@@ -174,6 +209,8 @@ Recommended CRUD test sequence:
 6. `DELETE /api/courses/{id}`
 7. Confirm the deleted course returns `404`
 
+The same create, update and delete flow can also be tested from the dashboard at `http://localhost:5000`.
+
 ## Data Persistence
 
 Course data is stored in `courses.json`.
@@ -182,7 +219,7 @@ Creating, updating, or deleting a course writes the current collection back to t
 
 ## Portfolio Context
 
-This project demonstrates practical backend concepts including:
+This project demonstrates practical full-stack concepts including:
 
 - RESTful API design
 - CRUD operations
@@ -192,6 +229,8 @@ This project demonstrates practical backend concepts including:
 - HTTP status codes
 - OpenAPI / Swagger documentation
 - Basic error handling
+- Frontend-to-API integration with `fetch()`
+- AI-assisted UI generation with Bolt.new
 - Git/GitHub workflow
 
 ## License
